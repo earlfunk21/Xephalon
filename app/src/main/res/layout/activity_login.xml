@@ -45,11 +45,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/e_mail_address"
+            android:text="Username"
             android:textAppearance="@style/Label"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_layout_email"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             app:hintEnabled="false"
@@ -58,27 +57,17 @@
             android:background="@drawable/background_et">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_email"
+                android:id="@+id/et_username"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingHorizontal="15dp"
-                android:hint="Enter your E-mail Address here"
-                android:inputType="textEmailAddress"
+                android:hint="Enter your Username here"
+                android:inputType="text"
                 android:textColorHint="@color/suva_grey"
                 android:textColor="@color/black"
                 android:background="@null"/>
 
         </com.google.android.material.textfield.TextInputLayout>
-        <TextView
-            android:id="@+id/tv_error_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Invalid Email"
-            android:textColor="?attr/colorError"
-            android:layout_marginBottom="10dp"
-            android:visibility="gone"
-            android:fontFamily="@font/poppins_regular"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,7 +75,6 @@
             android:textAppearance="@style/Label"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_layout_password"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             app:boxStrokeWidth="0dp"
@@ -107,15 +95,7 @@
                 android:textColorHint="@color/suva_grey" />
 
         </com.google.android.material.textfield.TextInputLayout>
-        <TextView
-            android:id="@+id/tv_error_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Invalid Password"
-            android:textColor="?attr/colorError"
-            android:layout_marginBottom="10dp"
-            android:visibility="gone"
-            android:fontFamily="@font/poppins_regular"/>
+
     </LinearLayout>
 
     <Button
@@ -125,6 +105,17 @@
         android:text="@string/sign_in"
         android:layout_marginVertical="10dp"
         android:onClick="loginUser"/>
+
+    <TextView
+        android:id="@+id/tv_error_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Invalid Credentials"
+        android:textColor="?attr/colorError"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:fontFamily="@font/poppins_regular"/>
 
     <LinearLayout
         android:layout_width="match_parent"

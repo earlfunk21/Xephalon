@@ -59,18 +59,29 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="395dp"
         android:orientation="vertical">
-        <include layout="@layout/docs_item"/>
-        <include layout="@layout/docs_item"/>
-        <include layout="@layout/docs_item"/>
+
+        <include layout="@layout/docs_item" />
+
+        <include layout="@layout/docs_item" />
+
+        <include layout="@layout/docs_item" />
+
     </LinearLayout>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:src="@drawable/outline_directions_run_24"
-        android:backgroundTint="?attr/colorPrimary"
-        android:contentDescription="@string/logout_user"
-        android:onClick="logoutUser"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center"
+            android:src="@drawable/outline_directions_run_24"
+            android:backgroundTint="?attr/colorPrimary"
+            android:contentDescription="@string/logout_user"
+            android:onClick="logoutUser"/>
+    </LinearLayout>
 </LinearLayout>

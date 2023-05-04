@@ -1,10 +1,10 @@
 package com.morax.xephalon.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,14 +14,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputLayout;
 import com.morax.xephalon.MainActivity;
 import com.morax.xephalon.R;
+import com.morax.xephalon.api.LoginApi;
+import com.morax.xephalon.request.LoginRequest;
+import com.morax.xephalon.response.LoginResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
     private boolean nightMode;
+    private TextView tvErrorMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,34 +67,50 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void loginUser(View view) {
-        EditText etEmail = findViewById(R.id.et_email);
+        EditText etUsername = findViewById(R.id.et_username);
         EditText etPassword = findViewById(R.id.et_password);
-        TextView tvErrorEmail = findViewById(R.id.tv_error_email);
-        TextView tvErrorPassword = findViewById(R.id.tv_error_password);
 
-        String strEmail = etEmail.getText().toString();
+        String strEmail = etUsername.getText().toString();
         String strPassword = etPassword.getText().toString();
-        if(strEmail.equals("admin")){
-            tvErrorEmail.setVisibility(View.GONE);
-            if (strPassword.equals("123456")){
-                tvErrorPassword.setVisibility(View.GONE);
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                SharedPreferences sharedPreferences1 = getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences1.edit();
-                editor.putString("user", "Admin");
-                editor.apply();
-            } else{
-                tvErrorPassword.setVisibility(View.VISIBLE);
-                Toast.makeText(this, "Invalid Password", Toast.LENGTH_SHORT).show();
-            }
-        } else{
-            tvErrorEmail.setVisibility(View.VISIBLE);
-            Toast.makeText(this, "Invalid Email", Toast.LENGTH_SHORT).show();
-        }
+        loginUserApi(strEmail, strPassword);
     }
 
-    public void logoutUser(View view) {
+    private void loginUserApi(String username, String password){
+        tvErrorMessage = findViewById(R.id.tv_error_message);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.0.101:6901/api/auth/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        LoginApi loginApi = retrofit.create(LoginApi.class);
+        LoginRequest loginRequest = new LoginRequest(username, password);
+        Call<LoginResponse> call = loginApi.login(loginRequest);
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
+                if(response.isSuccessful()){
+                    tvErrorMessage.setVisibility(View.GONE);
+                    LoginResponse loginResponse = response.body();
+                    String token = loginResponse.getToken();
+                    String user = loginResponse.getUser();
+                    SharedPreferences sharedPreferences1 = getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences1.edit();
+                    editor.putString("token", token);
+                    editor.putString("user", user);
+                    editor.apply();
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    Toast.makeText(getApplicationContext(), "Successfully logged In", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                tvErrorMessage.setVisibility(View.GONE);
+                Toast.makeText(getApplicationContext(), "Failed to login", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
