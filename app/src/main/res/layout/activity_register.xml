@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.LoginActivity"
+    tools:context=".activity.RegisterActivity"
     android:orientation="vertical"
     android:padding="30dp">
 
@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/TextH1"
-            android:text="@string/sign_in"/>
+            android:text="@string/sign_up"/>
 
         <Space
             android:layout_width="0dp"
@@ -27,12 +27,12 @@
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switchMode"
+            android:padding="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="switchMode"
-            android:padding="5dp"
             android:thumb="@drawable/thumb"
-            app:track="@drawable/track" />
+            app:track="@drawable/track"
+            android:onClick="switchMode"/>
 
     </LinearLayout>
 
@@ -40,7 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="bottom"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="30dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,13 +50,14 @@
             android:textAppearance="@style/Label"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_layout_email"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false"
+            android:layout_marginBottom="30dp"
             app:startIconDrawable="@drawable/baseline_lock_24"
-            app:startIconTint="?attr/colorPrimary"
-            android:background="@drawable/background_et">
+            app:startIconTint="?attr/colorPrimary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_email"
@@ -65,19 +67,9 @@
                 android:hint="Enter your E-mail Address here"
                 android:inputType="textEmailAddress"
                 android:textColorHint="@color/suva_grey"
-                android:textColor="@color/black"
-                android:background="@null"/>
+                android:background="@drawable/background_et" />
 
         </com.google.android.material.textfield.TextInputLayout>
-        <TextView
-            android:id="@+id/tv_error_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Invalid Email"
-            android:textColor="?attr/colorError"
-            android:layout_marginBottom="10dp"
-            android:visibility="gone"
-            android:fontFamily="@font/poppins_regular"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -86,36 +78,51 @@
             android:textAppearance="@style/Label"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_layout_password"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false"
+            android:layout_marginBottom="30dp"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="?attr/colorPrimary">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/background_et"
+                android:paddingHorizontal="15dp"
                 android:hint="Enter your Password here"
                 android:inputType="textPassword"
-                android:paddingHorizontal="15dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/suva_grey" />
+                android:textColorHint="@color/suva_grey"
+                android:background="@drawable/background_et"/>
 
         </com.google.android.material.textfield.TextInputLayout>
         <TextView
-            android:id="@+id/tv_error_password"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Invalid Password"
-            android:textColor="?attr/colorError"
-            android:layout_marginBottom="10dp"
-            android:visibility="gone"
-            android:fontFamily="@font/poppins_regular"/>
+            android:text="Confirm Password"
+            android:textAppearance="@style/Label"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintEnabled="false"
+            android:layout_marginBottom="30dp"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="?attr/colorPrimary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="15dp"
+                android:hint="Enter your Confirm Password here"
+                android:inputType="textPassword"
+                android:textColorHint="@color/suva_grey"
+                android:background="@drawable/background_et"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <Button
@@ -123,8 +130,7 @@
         android:layout_height="wrap_content"
         style="@style/Button"
         android:text="@string/sign_in"
-        android:layout_marginVertical="10dp"
-        android:onClick="loginUser"/>
+        android:layout_marginBottom="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -153,55 +159,16 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        style="@style/Label"
-        android:textSize="16sp"
-        android:text="Sign In with"
-        android:layout_marginBottom="10dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:showDividers="middle"
-        android:divider="@drawable/linear_layout_divider">
-
-        <ImageButton
-            android:layout_width="57dp"
-            android:layout_height="43dp"
-            android:src="@drawable/google_logo"
-            android:scaleType="fitCenter"
-            android:background="@color/transparent"/>
-
-        <ImageButton
-            android:layout_width="57dp"
-            android:layout_height="43dp"
-            android:background="@color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/facebook_logo" />
-
-        <ImageButton
-            android:layout_width="58dp"
-            android:layout_height="56dp"
-            android:background="@color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/github_logo" />
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
         style="@style/TextH1"
-        android:text="@string/create_an_account"
+        android:text="Sign In"
         android:textSize="24sp"
         android:clickable="true"
         android:layout_gravity="bottom"
         android:textColor="?attr/colorPrimary"
         android:focusable="true"
-        android:onClick="openRegisterActivity"/>
+        android:onClick="openLoginActivity"/>
 
 </LinearLayout>

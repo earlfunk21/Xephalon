@@ -4,4 +4,8 @@
     <string name="password">Password</string>
     <string name="e_mail_address">E-mail Address</string>
     <string name="or">Or</string>
+    <string name="create_an_account">Create an Account</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="home">Home</string>
+    <string name="logout_user">Logout User</string>
 </resources>

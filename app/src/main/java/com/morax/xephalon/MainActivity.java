@@ -6,7 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
+import com.morax.xephalon.activity.HomeActivity;
 import com.morax.xephalon.activity.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,13 +28,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if(sharedPreferences.getString("username", "anonymous").equals("anonymous")){
-
+        if(sharedPreferences.getString("user", "anonymous").equals("anonymous")){
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
 
     }
+
 
 }
