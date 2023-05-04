@@ -1,0 +1,21 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Xephalon" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+         <item name="colorPrimary">@color/dark_salmon</item>
+    </style>
+
+    <style name="Theme.Xephalon" parent="Base.Theme.Xephalon" />
+
+    <style name="TextH1" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textColor">@color/midnight_express</item>
+    </style>
+    <style name="Label" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">22sp</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textColor">@color/midnight_express</item>
+    </style>
+</resources>
