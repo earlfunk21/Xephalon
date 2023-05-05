@@ -2,7 +2,7 @@ from flask import Flask
 from config import ProductionConfig, DevelopmentConfig
 
 from flask_migrate import Migrate
-from backend.models import db
+from app.models import db
 
 
 
@@ -17,10 +17,10 @@ def create_app(config=DevelopmentConfig):
 
 
 def blueprints(app: Flask):
-    from backend.api import api_bp
+    from app.api import api_bp
     app.register_blueprint(api_bp)
 
-    from backend.admin import admin_bp
+    from app.admin import admin_bp
     app.register_blueprint(admin_bp)
     
 

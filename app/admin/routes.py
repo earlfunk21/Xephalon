@@ -1,5 +1,5 @@
-from backend.admin import admin_bp
-from backend.models import User, db
+from app.admin import admin_bp
+from app.models import User, db
 import click
 
 

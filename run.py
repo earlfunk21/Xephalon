@@ -1,5 +1,5 @@
 # import the create app application factory
-from backend import create_app
+from app import create_app
 
 # import the application config classes
 from config import DevelopmentConfig, ProductionConfig

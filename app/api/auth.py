@@ -1,8 +1,8 @@
 from flask import jsonify, request, Blueprint, current_app
 from functools import wraps
 from itsdangerous import URLSafeTimedSerializer
-from backend.models import db
-from backend.models.user import User
+from app.models import db
+from app.models.user import User
 
 auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 

@@ -1,5 +1,5 @@
 import json
-from backend.models import db
+from app.models import db
 import datetime
 from flask_sqlalchemy import BaseQuery
 from sqlalchemy.ext.hybrid import hybrid_property

@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
-from backend.api.auth import token_required
-from backend.models import User
-from backend.models import db
+from app.api.auth import token_required
+from app.models import User
+from app.models import db
 
 
 user_bp = Blueprint("user", __name__, url_prefix="/user")
