@@ -14,17 +14,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.morax.xephalon.ClientService;
 import com.morax.xephalon.MainActivity;
 import com.morax.xephalon.R;
-import com.morax.xephalon.api.LoginApi;
-import com.morax.xephalon.request.LoginRequest;
+import com.morax.xephalon.api.AuthApi;
+import com.morax.xephalon.request.AuthRequest;
 import com.morax.xephalon.response.LoginResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -77,13 +77,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginUserApi(String username, String password){
         tvErrorMessage = findViewById(R.id.tv_error_message);
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.101:6901/api/auth/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        LoginApi loginApi = retrofit.create(LoginApi.class);
-        LoginRequest loginRequest = new LoginRequest(username, password);
-        Call<LoginResponse> call = loginApi.login(loginRequest);
+        AuthApi authApi = ClientService.getAuthService();
+        AuthRequest authRequest = new AuthRequest(username, password);
+        Call<LoginResponse> call = authApi.login(authRequest);
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {

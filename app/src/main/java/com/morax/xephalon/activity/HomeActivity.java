@@ -46,6 +46,7 @@ public class HomeActivity extends AppCompatActivity {
         }
         editor.apply();
     }
+
     public void logoutUser(View view) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("user", "anonymous");

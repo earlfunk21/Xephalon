@@ -10,9 +10,10 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
-import com.morax.xephalon.api.LoginApi;
-import com.morax.xephalon.request.LoginRequest;
+import com.morax.xephalon.api.AuthApi;
+import com.morax.xephalon.request.AuthRequest;
 import com.morax.xephalon.response.LoginResponse;
+import com.morax.xephalon.response.RegisterResponse;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -40,14 +41,14 @@ public class ExampleInstrumentedTest {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        LoginApi loginApi = retrofit.create(LoginApi.class);
+        AuthApi authApi = retrofit.create(AuthApi.class);
 
         String username = "morax";
         String password = "123123";
 
-        LoginRequest loginRequest = new LoginRequest(username, password);
+        AuthRequest authRequest = new AuthRequest(username, password);
 
-        Call<LoginResponse> call = loginApi.login(loginRequest);
+        Call<LoginResponse> call = authApi.login(authRequest);
 
         try {
             Response<LoginResponse> response = call.execute();
@@ -56,6 +57,22 @@ public class ExampleInstrumentedTest {
             assertNotNull(jwt);
         } catch (Exception e) {
             fail("Failed to login: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testRegister(){
+        AuthApi authApi = ClientService.getAuthService();
+        AuthRequest request = new AuthRequest("earl123", "123123");
+        Call<RegisterResponse> call = authApi.register(request);
+
+        try {
+            Response<RegisterResponse> response = call.execute();
+            RegisterResponse registerResponse = response.body();
+            String username = registerResponse.getUsername();
+            assertNotNull(username);
+        } catch (Exception e) {
+            fail("Failed to Register: " + e.getMessage());
         }
     }
 }
