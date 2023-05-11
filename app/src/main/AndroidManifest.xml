@@ -13,16 +13,16 @@
         android:theme="@style/Theme.Xephalon"
         tools:targetApi="31">
         <activity
-            android:name=".activity.HomeActivity"
+            android:name=".DocumentationActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name=".HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,10 +1,9 @@
-package com.morax.xephalon.activity;
+package com.morax.xephalon;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,10 +12,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.material.textfield.TextInputLayout;
-import com.morax.xephalon.MainActivity;
-import com.morax.xephalon.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -34,7 +29,16 @@ public class LoginActivity extends AppCompatActivity {
             switchMode.setChecked(true);
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(!sharedPreferences.getString("user", "anonymous").equals("anonymous")){
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
     }
 
     public void switchMode(View view) {
@@ -69,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
             tvErrorEmail.setVisibility(View.GONE);
             if (strPassword.equals("123456")){
                 tvErrorPassword.setVisibility(View.GONE);
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 SharedPreferences sharedPreferences1 = getSharedPreferences("myPrefs", Context.MODE_PRIVATE);

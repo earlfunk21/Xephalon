@@ -1,4 +1,4 @@
-package com.morax.xephalon.activity;
+package com.morax.xephalon;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -9,20 +9,22 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.morax.xephalon.MainActivity;
-import com.morax.xephalon.R;
+import com.morax.xephalon.model.DocsModel;
 
-public class HomeActivity extends AppCompatActivity {
+public class DocumentationActivity extends AppCompatActivity {
 
-    private SharedPreferences sharedPreferences;
+    private ImageView ivThumbnail;
+    private TextView tvTitle, tvDocs, tvDate;
     private boolean nightMode;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_documentation);
         SwitchCompat switchMode = findViewById(R.id.home_switch_mode);
         sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
         nightMode = sharedPreferences.getBoolean("nightMode", false);
@@ -30,9 +32,27 @@ public class HomeActivity extends AppCompatActivity {
             switchMode.setChecked(true);
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
+        ivThumbnail = findViewById(R.id.iv_thumbnail_details);
+        tvTitle = findViewById(R.id.tv_title_details);
+        tvDocs = findViewById(R.id.tv_docs_details);
+        tvDate = findViewById(R.id.tv_date_details);
 
+        Intent intent = getIntent();
+        DocsModel docsModel = (DocsModel) intent.getSerializableExtra("model");
+        String title = docsModel.getTitle();
+        String docs = docsModel.getDocs();
+        int thumbnail = docsModel.getThumbnail();
+        String date = docsModel.getDate();
+
+        tvTitle.setText(title);
+        tvDocs.setText(docs);
+        ivThumbnail.setImageResource(thumbnail);
+        tvDate.setText(date);
     }
-
+    public void goBack(View view) {
+        onBackPressed();
+        finish();
+    }
     public void switchMode(View view) {
         SharedPreferences.Editor editor;
         if (nightMode){
@@ -45,14 +65,5 @@ public class HomeActivity extends AppCompatActivity {
             editor.putBoolean("nightMode", true);
         }
         editor.apply();
-    }
-    public void logoutUser(View view) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("user", "anonymous");
-        editor.apply();
-        Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        Toast.makeText(this, "Logout Successfully", Toast.LENGTH_SHORT).show();
     }
 }

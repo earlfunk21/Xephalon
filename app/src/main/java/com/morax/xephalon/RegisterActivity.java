@@ -1,4 +1,4 @@
-package com.morax.xephalon.activity;
+package com.morax.xephalon;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -9,9 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-
-import com.morax.xephalon.MainActivity;
-import com.morax.xephalon.R;
 
 public class RegisterActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
