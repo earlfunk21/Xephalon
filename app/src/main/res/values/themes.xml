@@ -3,6 +3,7 @@
     <style name="Base.Theme.Xephalon" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
          <item name="colorPrimary">@color/dark_salmon</item>
+        <item name="android:editTextBackground">@color/grey</item>
     </style>
 
     <style name="Theme.Xephalon" parent="Base.Theme.Xephalon" />

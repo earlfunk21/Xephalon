@@ -69,15 +69,6 @@
                 android:background="@null"/>
 
         </com.google.android.material.textfield.TextInputLayout>
-        <TextView
-            android:id="@+id/tv_error_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Invalid Email"
-            android:textColor="?attr/colorError"
-            android:layout_marginBottom="10dp"
-            android:visibility="gone"
-            android:fontFamily="@font/poppins_regular"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -107,15 +98,6 @@
                 android:textColorHint="@color/suva_grey" />
 
         </com.google.android.material.textfield.TextInputLayout>
-        <TextView
-            android:id="@+id/tv_error_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Invalid Password"
-            android:textColor="?attr/colorError"
-            android:layout_marginBottom="10dp"
-            android:visibility="gone"
-            android:fontFamily="@font/poppins_regular"/>
     </LinearLayout>
 
     <Button

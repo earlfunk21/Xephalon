@@ -28,23 +28,12 @@
 
         <TextView
             style="@style/TextH1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Documentation" />
-
-        <Space
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/home_switch_mode"
-            android:layout_width="wrap_content"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:onClick="switchMode"
-            android:padding="5dp"
-            android:thumb="@drawable/thumb"
-            app:track="@drawable/track" />
+            android:text="Documentation"
+            android:gravity="center"/>
+
     </LinearLayout>
 
     <LinearLayout

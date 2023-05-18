@@ -2,13 +2,13 @@ package com.morax.xephalon.model;
 
 import java.io.Serializable;
 
-public class DocsModel implements Serializable {
+public class Documentation implements Serializable {
     private String title;
     private String docs;
     private String date;
     private int thumbnail;
 
-    public DocsModel(String title, String docs, String date, int thumbnail) {
+    public Documentation(String title, String docs, String date, int thumbnail) {
         this.title = title;
         this.docs = docs;
         this.date = date;

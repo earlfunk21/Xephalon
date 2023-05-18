@@ -4,6 +4,7 @@
         <!-- Customize your dark theme here. -->
          <item name="colorPrimary">@color/london_hue</item>
         <item name="colorError">#C8102E</item>
+        <item name="android:editTextBackground">@color/suva_grey</item>
     </style>
     <style name="Theme.Xephalon" parent="Base.Theme.Xephalon" />
 

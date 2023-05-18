@@ -13,28 +13,49 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.morax.xephalon.dao.UserDao;
+import com.morax.xephalon.databinding.ActivityLoginBinding;
+import com.morax.xephalon.databinding.ActivityRegisterBinding;
+import com.morax.xephalon.model.User;
+
+import java.util.Objects;
+
 public class LoginActivity extends AppCompatActivity {
 
-    private SharedPreferences sharedPreferences;
+    private SharedPreferences nightModePrefs;
+    private SharedPreferences userPrefs;
     private boolean nightMode;
+
+
+    private UserDao userDao;
+    private ActivityLoginBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        SwitchCompat switchMode = findViewById(R.id.switchMode);
-        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
-        nightMode = sharedPreferences.getBoolean("nightMode", false);
-        if (nightMode){
-            switchMode.setChecked(true);
+        // Binding ID's
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
+        nightModePrefs = getSharedPreferences("MODE", MODE_PRIVATE);
+        userPrefs = getSharedPreferences("userPrefs", MODE_PRIVATE);
+
+        nightMode = nightModePrefs.getBoolean("nightMode", false);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        if (nightMode) {
+            binding.switchMode.setChecked(true);
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
+
+        userDao = AppDatabase.getInstance(this).userDao();
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if(!sharedPreferences.getString("user", "anonymous").equals("anonymous")){
+        if (!userPrefs.getString("user", "").equals("")) {
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
@@ -43,13 +64,13 @@ public class LoginActivity extends AppCompatActivity {
 
     public void switchMode(View view) {
         SharedPreferences.Editor editor;
-        if (nightMode){
+        if (nightMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            editor = sharedPreferences.edit();
+            editor = nightModePrefs.edit();
             editor.putBoolean("nightMode", false);
-        } else{
+        } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            editor = sharedPreferences.edit();
+            editor = nightModePrefs.edit();
             editor.putBoolean("nightMode", true);
         }
         editor.apply();
@@ -62,34 +83,21 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void loginUser(View view) {
-        EditText etEmail = findViewById(R.id.et_email);
-        EditText etPassword = findViewById(R.id.et_password);
-        TextView tvErrorEmail = findViewById(R.id.tv_error_email);
-        TextView tvErrorPassword = findViewById(R.id.tv_error_password);
+        String strEmail = Objects.requireNonNull(binding.etEmail.getText()).toString();
+        String strPassword = Objects.requireNonNull(binding.etPassword.getText()).toString();
 
-        String strEmail = etEmail.getText().toString();
-        String strPassword = etPassword.getText().toString();
-        if(strEmail.equals("admin")){
-            tvErrorEmail.setVisibility(View.GONE);
-            if (strPassword.equals("123456")){
-                tvErrorPassword.setVisibility(View.GONE);
-                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                SharedPreferences sharedPreferences1 = getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences1.edit();
-                editor.putString("user", "Admin");
-                editor.apply();
-            } else{
-                tvErrorPassword.setVisibility(View.VISIBLE);
-                Toast.makeText(this, "Invalid Password", Toast.LENGTH_SHORT).show();
-            }
-        } else{
-            tvErrorEmail.setVisibility(View.VISIBLE);
-            Toast.makeText(this, "Invalid Email", Toast.LENGTH_SHORT).show();
+        User user = userDao.checkUser(strEmail, strPassword);
+        if (user == null) {
+            Toast.makeText(this, "Invalid Credentials!", Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        SharedPreferences.Editor editor = userPrefs.edit();
+        editor.putString("user", user.username);
+        editor.apply();
     }
 
-    public void logoutUser(View view) {
-    }
 }

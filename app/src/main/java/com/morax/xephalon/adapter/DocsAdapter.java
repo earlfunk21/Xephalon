@@ -14,17 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.morax.xephalon.DocumentationActivity;
 import com.morax.xephalon.R;
-import com.morax.xephalon.model.DocsModel;
+import com.morax.xephalon.model.Documentation;
 
 import java.util.List;
 
 public class DocsAdapter extends RecyclerView.Adapter<DocsAdapter.ViewHolder> {
     private Context context;
-    private List<DocsModel> docsModelList;
+    private List<Documentation> documentationList;
 
-    public DocsAdapter(Context context, List<DocsModel> docsModelList) {
+    public DocsAdapter(Context context, List<Documentation> documentationList) {
         this.context = context;
-        this.docsModelList = docsModelList;
+        this.documentationList = documentationList;
     }
 
     @NonNull
@@ -37,10 +37,10 @@ public class DocsAdapter extends RecyclerView.Adapter<DocsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        DocsModel docsModel = docsModelList.get(position);
-        String title = docsModel.getTitle();
-        String docs = docsModel.getDocs();
-        int thumbnail = docsModel.getThumbnail();
+        Documentation documentation = documentationList.get(position);
+        String title = documentation.getTitle();
+        String docs = documentation.getDocs();
+        int thumbnail = documentation.getThumbnail();
 
         holder.getTvTitle().setText(title);
         holder.getTvDocs().setText(docs);
@@ -49,7 +49,7 @@ public class DocsAdapter extends RecyclerView.Adapter<DocsAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, DocumentationActivity.class);
-                intent.putExtra("model", docsModel);
+                intent.putExtra("model", documentation);
                 context.startActivity(intent);
             }
         });
@@ -57,7 +57,7 @@ public class DocsAdapter extends RecyclerView.Adapter<DocsAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return docsModelList.size();
+        return documentationList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{

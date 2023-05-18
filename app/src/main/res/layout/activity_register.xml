@@ -88,6 +88,7 @@
             app:passwordToggleTint="?attr/colorPrimary">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingHorizontal="15dp"
@@ -114,6 +115,7 @@
             app:passwordToggleTint="?attr/colorPrimary">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_password1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingHorizontal="15dp"
@@ -129,8 +131,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Button"
-        android:text="@string/sign_in"
-        android:layout_marginBottom="10dp"/>
+        android:text="Create Account"
+        android:layout_marginBottom="10dp"
+        android:onClick="createAccount"/>
 
     <LinearLayout
         android:layout_width="match_parent"
