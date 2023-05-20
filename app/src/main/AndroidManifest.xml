@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Xephalon"
         tools:targetApi="31">
         <activity
+            android:name=".LanguageActivity"
+            android:exported="false" />
+        <activity
             android:name=".ConversionActivity"
             android:exported="false" />
         <activity

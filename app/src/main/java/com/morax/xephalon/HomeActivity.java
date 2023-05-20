@@ -8,15 +8,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import com.morax.xephalon.adapter.DocsAdapter;
+import com.morax.xephalon.adapter.LangAdapter;
 import com.morax.xephalon.databinding.ActivityConversionBinding;
 import com.morax.xephalon.databinding.ActivityHomeBinding;
 import com.morax.xephalon.model.Documentation;
+import com.morax.xephalon.model.Language;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +35,7 @@ public class HomeActivity extends AppCompatActivity {
     private SharedPreferences nightModePrefs;
     private SharedPreferences userPrefs;
     private boolean nightMode;
-    private List<Documentation> documentationList;
+    private List<Language> langList;
     private ActivityHomeBinding binding;
 
     @Override
@@ -35,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         initData();
-        DocsAdapter docsAdapter = new DocsAdapter(this, documentationList);
+        LangAdapter docsAdapter = new LangAdapter(this, langList);
         binding.rvDocs.setAdapter(docsAdapter);
 
         nightModePrefs = getSharedPreferences("MODE", MODE_PRIVATE);
@@ -72,22 +82,10 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        documentationList = new ArrayList<>();
-
-        documentationList.add(
-                new Documentation("Python", "Python's documentation, tutorials, and guides are constantly evolving.\n" +
-                        "\n" +
-                        "Get started here, or scroll down for documentation broken out by type and subject.", "01/02/2003", R.drawable.python_logo)
-        );
-        documentationList.add(
-                new Documentation("Java", "Whether you are working on a new cutting edge app or simply ramping up on new technology, Java documentation has all the information you need to make your project a smashing success. Use the rich set of code samples, tutorials, developer guides, API documentation, and more to quickly develop your prototype and scale it up to a real world application.",
-                        "01/02/2003",
-                        R.drawable.java_logo)
-        );
+        langList = new ArrayList<>();
+        langList.add(new Language(R.drawable.go, "go_index.json", "GO Lang"));
+        langList.add(new Language(R.drawable.js, "js_index.json", "JavaScript"));
+        langList.add(new Language(R.drawable.rust, "rust_index.json", "Rust"));
     }
 
-    public void openConversion(View view) {
-        Intent intent = new Intent(HomeActivity.this, ConversionActivity.class);
-        startActivity(intent);
-    }
 }

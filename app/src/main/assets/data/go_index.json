@@ -1,0 +1,20 @@
+[
+  "go/Introduction.json",
+  "go/Notation.json",
+  "go/Source_code_representation.json",
+  "go/Lexical_elements.json",
+  "go/Constants.json",
+  "go/Variables.json",
+  "go/Types.json",
+  "go/Properties_of_types_and_values.json",
+  "go/Blocks.json",
+  "go/Declarations_and_scope.json",
+  "go/Expressions.json",
+  "go/Statements.json",
+  "go/Built-in_functions.json",
+  "go/Packages.json",
+  "go/Program_initialization_and_execution.json",
+  "go/Errors.json",
+  "go/Run-time_panics.json",
+  "go/System_considerations.json"
+]

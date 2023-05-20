@@ -3,16 +3,26 @@ package com.morax.xephalon.model;
 import java.io.Serializable;
 
 public class Documentation implements Serializable {
+    private String lang;
     private String title;
-    private String docs;
-    private String date;
+    private String fullPath;
+    private String markdown;
     private int thumbnail;
 
-    public Documentation(String title, String docs, String date, int thumbnail) {
+    public Documentation(String lang, String title, String fullPath, String markdown, int thumbnail) {
+        this.lang = lang;
         this.title = title;
-        this.docs = docs;
-        this.date = date;
+        this.fullPath = fullPath;
+        this.markdown = markdown;
         this.thumbnail = thumbnail;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 
     public String getTitle() {
@@ -23,20 +33,20 @@ public class Documentation implements Serializable {
         this.title = title;
     }
 
-    public String getDocs() {
-        return docs;
+    public String getFullPath() {
+        return fullPath;
     }
 
-    public void setDocs(String docs) {
-        this.docs = docs;
+    public void setFullPath(String fullPath) {
+        this.fullPath = fullPath;
     }
 
-    public String getDate() {
-        return date;
+    public String getMarkdown() {
+        return markdown;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setMarkdown(String markdown) {
+        this.markdown = markdown;
     }
 
     public int getThumbnail() {

@@ -14,10 +14,12 @@ import android.widget.TextView;
 
 import com.morax.xephalon.model.Documentation;
 
+import io.noties.markwon.Markwon;
+
 public class DocumentationActivity extends AppCompatActivity {
 
     private ImageView ivThumbnail;
-    private TextView tvTitle, tvDocs, tvDate;
+    private TextView tvTitle, tvMarkdown, tvLang;
     private SharedPreferences userPrefs;
 
     @Override
@@ -29,20 +31,20 @@ public class DocumentationActivity extends AppCompatActivity {
 
         ivThumbnail = findViewById(R.id.iv_thumbnail_details);
         tvTitle = findViewById(R.id.tv_title_details);
-        tvDocs = findViewById(R.id.tv_docs_details);
-        tvDate = findViewById(R.id.tv_date_details);
+        tvMarkdown = findViewById(R.id.tv_markdown_details);
+        tvLang = findViewById(R.id.tv_lang_details);
 
         Intent intent = getIntent();
         Documentation documentation = (Documentation) intent.getSerializableExtra("model");
         String title = documentation.getTitle();
-        String docs = documentation.getDocs();
+        String strMarkdown = documentation.getMarkdown();
         int thumbnail = documentation.getThumbnail();
-        String date = documentation.getDate();
-
+        String lang = documentation.getLang();
+        final Markwon markwon = Markwon.create(this);
+        markwon.setMarkdown(tvMarkdown, strMarkdown);
         tvTitle.setText(title);
-        tvDocs.setText(docs);
         ivThumbnail.setImageResource(thumbnail);
-        tvDate.setText(date);
+        tvLang.setText(lang);
     }
     public void goBack(View view) {
         onBackPressed();
