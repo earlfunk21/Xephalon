@@ -11,7 +11,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.morax.xephalon.dao.BookmarkDao;
+import com.morax.xephalon.dao.UserDao;
+import com.morax.xephalon.model.Bookmark;
 import com.morax.xephalon.model.Documentation;
 
 import io.noties.markwon.Markwon;
@@ -20,7 +24,13 @@ public class DocumentationActivity extends AppCompatActivity {
 
     private ImageView ivThumbnail;
     private TextView tvTitle, tvMarkdown, tvLang;
+    private BookmarkDao bookmarkDao;
+
+    private Documentation documentation;
+
     private SharedPreferences userPrefs;
+    private UserDao userDao;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +38,9 @@ public class DocumentationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_documentation);
 
         userPrefs = getSharedPreferences("userPrefs", MODE_PRIVATE);
+        userDao = AppDatabase.getInstance(this).userDao();
+
+        bookmarkDao = AppDatabase.getInstance(this).bookmarkDao();
 
         ivThumbnail = findViewById(R.id.iv_thumbnail_details);
         tvTitle = findViewById(R.id.tv_title_details);
@@ -35,7 +48,7 @@ public class DocumentationActivity extends AppCompatActivity {
         tvLang = findViewById(R.id.tv_lang_details);
 
         Intent intent = getIntent();
-        Documentation documentation = (Documentation) intent.getSerializableExtra("model");
+        documentation = (Documentation) intent.getSerializableExtra("model");
         String title = documentation.getTitle();
         String strMarkdown = documentation.getMarkdown();
         int thumbnail = documentation.getThumbnail();
@@ -46,8 +59,15 @@ public class DocumentationActivity extends AppCompatActivity {
         ivThumbnail.setImageResource(thumbnail);
         tvLang.setText(lang);
     }
+
     public void goBack(View view) {
         onBackPressed();
         finish();
+    }
+
+    public void addBookmark(View view) {
+        long userId = userDao.getUserByUsername(userPrefs.getString("user", "")).id;
+        bookmarkDao.insert(new Bookmark(documentation, userId));
+        Toast.makeText(this, "Successfully Added to your Bookmark", Toast.LENGTH_LONG).show();
     }
 }

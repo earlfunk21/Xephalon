@@ -3,6 +3,8 @@ package com.morax.xephalon;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -37,6 +39,7 @@ public class HomeActivity extends AppCompatActivity {
     private boolean nightMode;
     private List<Language> langList;
     private ActivityHomeBinding binding;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,7 @@ public class HomeActivity extends AppCompatActivity {
             binding.switchMode.setChecked(true);
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
+        drawerLayout = binding.drawerLayout;
     }
 
     public void switchMode(View view) {
@@ -88,4 +92,23 @@ public class HomeActivity extends AppCompatActivity {
         langList.add(new Language(R.drawable.rust, "rust_index.json", "Rust"));
     }
 
+    public void openConversion(View view) {
+        Intent intent = new Intent(HomeActivity.this, ConversionActivity.class);
+        startActivity(intent);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (drawerLayout.isDrawerOpen(GravityCompat.START))
+            drawerLayout.closeDrawer(GravityCompat.START);
+    }
+
+    public void openSidebar(View view) {
+        drawerLayout.openDrawer(GravityCompat.START);
+    }
+
+    public void openBookmark(View view){
+        Intent intent = new Intent(HomeActivity.this, BookmarkActivity.class);
+        startActivity(intent);
+    }
 }

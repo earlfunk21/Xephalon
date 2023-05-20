@@ -34,6 +34,14 @@
             android:text="Documentation"
             android:gravity="center"/>
 
+        <ImageView
+            android:id="@+id/iv_logo_lang"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:scaleType="fitCenter"
+            android:padding="10dp"
+            android:src="@drawable/baseline_bookmark_add_24"
+            android:onClick="addBookmark"/>
     </LinearLayout>
 
     <LinearLayout
