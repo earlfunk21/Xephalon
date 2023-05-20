@@ -6,13 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.morax.xephalon.BookmarkActivity;
 import com.morax.xephalon.DocumentationActivity;
 import com.morax.xephalon.R;
 import com.morax.xephalon.model.Bookmark;
@@ -22,18 +22,21 @@ import java.util.List;
 
 import io.noties.markwon.Markwon;
 
-public class DocsAdapter extends RecyclerView.Adapter<DocsAdapter.ViewHolder> {
+public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHolder> {
     private Context context;
-    private List<Documentation> documentationList;
+    private List<Bookmark> bookmarkList;
 
-    public DocsAdapter(Context context, List<Documentation> documentationList) {
+    public BookmarkAdapter(Context context, List<Bookmark> bookmarkList) {
         this.context = context;
-        this.documentationList = documentationList;
+        this.bookmarkList = bookmarkList;
     }
 
-    public void setDocumentationList(List<Documentation> documentationList) {
-        this.documentationList = documentationList;
-        notifyDataSetChanged();
+    public void setBookmarkList(List<Bookmark> bookmarkList) {
+        this.bookmarkList = bookmarkList;
+    }
+
+    public Bookmark getBookMarkAt(int position){
+        return bookmarkList.get(position);
     }
 
     @NonNull
@@ -46,7 +49,8 @@ public class DocsAdapter extends RecyclerView.Adapter<DocsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Documentation documentation = documentationList.get(position);
+        Bookmark bookmark = bookmarkList.get(position);
+        Documentation documentation = bookmark.documentation;
         String title = documentation.getTitle();
         String lang = documentation.getLang();
         int thumbnail = documentation.getThumbnail();
@@ -68,7 +72,7 @@ public class DocsAdapter extends RecyclerView.Adapter<DocsAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return documentationList.size();
+        return bookmarkList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{

@@ -42,28 +42,14 @@
             tools:src="@drawable/go"/>
     </LinearLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
+    <SearchView
         android:id="@+id/et_search"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_margin="20dp"
         android:background="@drawable/background_et"
-        app:hintEnabled="false"
         app:layout_constraintTop_toBottomOf="@id/toolBar"
-        app:startIconDrawable="@drawable/baseline_search_24">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_email"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@null"
-            android:hint="Search something..."
-            android:inputType="textEmailAddress"
-            android:paddingHorizontal="15dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/suva_grey" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        android:queryHint="Search something..."/>
 
     <LinearLayout
         android:layout_width="match_parent"

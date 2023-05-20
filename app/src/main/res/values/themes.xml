@@ -4,6 +4,7 @@
         <!-- Customize your light theme here. -->
          <item name="colorPrimary">@color/dark_salmon</item>
         <item name="android:editTextBackground">@color/grey</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="Theme.Xephalon" parent="Base.Theme.Xephalon" />
@@ -28,5 +29,20 @@
     </style>
     <style name="Icon">
         <item name="android:tint">@color/black</item>
+    </style>
+
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="background">@color/white</item>
+        <item name="buttonBarNegativeButtonStyle">@style/negative</item>
+        <item name="buttonBarPositiveButtonStyle">@style/positive</item>
+    </style>
+
+    <style name="positive">
+        <item name="android:textColor">@color/dark_salmon</item>
+        <item name="android:background">@color/transparent</item>
+    </style>
+    <style name="negative">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@color/transparent</item>
     </style>
 </resources>

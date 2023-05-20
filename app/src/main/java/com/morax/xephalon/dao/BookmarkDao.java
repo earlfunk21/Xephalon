@@ -16,8 +16,8 @@ public interface BookmarkDao {
     @Insert
     void insert(Bookmark bookmark);
 
-    @Query("SELECT documentation FROM Bookmark WHERE userId = :userId")
-    List<Documentation> getBookmarksByUserId(long userId);
+    @Query("SELECT * FROM Bookmark WHERE userId = :userId")
+    List<Bookmark> getBookmarksByUserId(long userId);
 
     @Delete
     void delete(Bookmark bookmark);

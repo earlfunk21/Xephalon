@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.morax.xephalon.adapter.DocsAdapter;
@@ -47,6 +48,25 @@ public class LanguageActivity extends AppCompatActivity {
         DocsAdapter docsAdapter = new DocsAdapter(this, documentationList);
         binding.rvDocs.setAdapter(docsAdapter);
 
+        List<Documentation> filteredList = new ArrayList<>(documentationList);
+        binding.etSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                filteredList.clear();
+                for(Documentation documentation : documentationList){
+                    if(documentation.getMarkdown().toLowerCase().contains(s.toLowerCase()))
+                        filteredList.add(documentation);
+                }
+
+                docsAdapter.setDocumentationList(filteredList);
+                return true;
+            }
+        });
     }
 
 
