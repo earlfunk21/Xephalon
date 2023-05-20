@@ -1,0 +1,1 @@
+{"lang":"Rust","fullPath":"/input-format","category":"","title":"input-format.html","url":"https://doc.rust-lang.org/stable/reference/input-format.html","markdown":"# [Input format](#input-format)\n\nRust input is interpreted as a sequence of Unicode code points encoded in UTF-8.\n\n[ ](lexical-structure.html \"Previous chapter\") [ ](keywords.html \"Next chapter\") "}

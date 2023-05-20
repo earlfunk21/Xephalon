@@ -1,0 +1,7 @@
+{
+  "lang": "Go",
+  "title": "Blocks",
+  "category": "",
+  "fullPath": "/Blocks",
+  "markdown": "## Blocks\n\nA _block_ is a possibly empty sequence of declarations and statements within matching brace brackets.\n\nBlock = \"{\" [StatementList](https://go.dev/ref/spec#StatementList) \"}\" .\nStatementList = { [Statement](https://go.dev/ref/spec#Statement) \";\" } .\n\nIn addition to explicit blocks in the source code, there are implicit blocks:\n\n1. The _universe block_ encompasses all Go source text.\n2. Each [package](https://go.dev/ref/spec#Packages) has a _package block_ containing all Go source text for that package.\n3. Each file has a _file block_ containing all Go source text in that file.\n4. Each [\"if\"](https://go.dev/ref/spec#If%5Fstatements),[\"for\"](https://go.dev/ref/spec#For%5Fstatements), and[\"switch\"](https://go.dev/ref/spec#Switch%5Fstatements) statement is considered to be in its own implicit block.\n5. Each clause in a [\"switch\"](https://go.dev/ref/spec#Switch%5Fstatements) or [\"select\"](https://go.dev/ref/spec#Select%5Fstatements) statement acts as an implicit block.\n\nBlocks nest and influence [scoping](https://go.dev/ref/spec#Declarations%5Fand%5Fscope)."
+}
