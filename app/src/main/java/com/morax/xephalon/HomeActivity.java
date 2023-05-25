@@ -111,4 +111,9 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(HomeActivity.this, BookmarkActivity.class);
         startActivity(intent);
     }
+
+    public void openSearchHistory(View view){
+        Intent intent = new Intent(HomeActivity.this, SearchHistoryActivity.class);
+        startActivity(intent);
+    }
 }

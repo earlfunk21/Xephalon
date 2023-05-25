@@ -11,8 +11,11 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.morax.xephalon.adapter.DocsAdapter;
+import com.morax.xephalon.dao.HistoryDao;
+import com.morax.xephalon.dao.UserDao;
 import com.morax.xephalon.databinding.ActivityLanguageBinding;
 import com.morax.xephalon.model.Documentation;
+import com.morax.xephalon.model.History;
 import com.morax.xephalon.model.Language;
 
 import org.json.JSONArray;
@@ -49,14 +52,19 @@ public class LanguageActivity extends AppCompatActivity {
         binding.rvDocs.setAdapter(docsAdapter);
 
         List<Documentation> filteredList = new ArrayList<>(documentationList);
+
+        HistoryDao historyDao = AppDatabase.getInstance(this).historyDao();
+
         binding.etSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
+                SharedPreferences userPrefs = getSharedPreferences("userPrefs", MODE_PRIVATE);
+                UserDao userDao = AppDatabase.getInstance(LanguageActivity.this).userDao();
+                long userId = userDao.getUserByUsername(userPrefs.getString("user", "")).id;
+                History history = new History(s, userId);
+                historyDao.insert(history);
 
-            @Override
-            public boolean onQueryTextChange(String s) {
+
                 filteredList.clear();
                 for(Documentation documentation : documentationList){
                     if(documentation.getMarkdown().toLowerCase().contains(s.toLowerCase()))
@@ -65,6 +73,11 @@ public class LanguageActivity extends AppCompatActivity {
 
                 docsAdapter.setDocumentationList(filteredList);
                 return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
             }
         });
     }
